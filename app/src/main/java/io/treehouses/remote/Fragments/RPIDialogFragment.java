@@ -63,6 +63,7 @@ public class RPIDialogFragment extends androidx.fragment.app.DialogFragment {
         bluetoothCheck();
         if(mBluetoothAdapter.isDiscovering()) { mBluetoothAdapter.cancelDiscovery(); }
         mBluetoothAdapter.startDiscovery();
+//        getActivity().unregisterReceiver(mReceiver);
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View mView = inflater.inflate(R.layout.activity_rpi_dialog_fragment,null);
         dialog = new ProgressDialog(getActivity(), ProgressDialog.THEME_HOLO_DARK);
@@ -147,7 +148,15 @@ public class RPIDialogFragment extends androidx.fragment.app.DialogFragment {
     @Override
     public void onStop() {
         super.onStop();
+//        mReceiver.abortBroadcast();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(mReceiver);
+    }
+
     protected AlertDialog getAlertDialog(View mView) {
         return new AlertDialog.Builder(getActivity())
                 .setView(mView)
@@ -192,13 +201,13 @@ public class RPIDialogFragment extends androidx.fragment.app.DialogFragment {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 String deviceName = device.getName();
                 String deviceHardwareAddress = device.getAddress(); // MAC address
-//                if(deviceName!=null){
+                if(deviceName!=null){
 //                    deviceNames.add(deviceName);
 //                    deviceId.add(deviceHardwareAddress);
                     devices.add(device);
                     s.add(deviceName+ "\n" + deviceHardwareAddress);
-                    listView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, s));
-//                }
+                    listView.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, s));
+                }
 
                 Log.e("Broadcast BT", device.getName() + "\n" + device.getAddress());
             }
