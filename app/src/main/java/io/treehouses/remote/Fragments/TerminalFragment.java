@@ -47,8 +47,6 @@ public class TerminalFragment extends androidx.fragment.app.Fragment {
         initialActivity = new InitialActivity();
         list = new Lists();
 
-
-
 //        RPIDialogFragment initialActivity = new RPIDialogFragment();
 //        BluetoothDevice device = initialActivity.getMainDevice();
         mChatService = initialActivity.getChatService();
