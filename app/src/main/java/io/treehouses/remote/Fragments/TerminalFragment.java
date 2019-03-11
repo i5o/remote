@@ -1,31 +1,17 @@
 package io.treehouses.remote.Fragments;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.DialogFragment;
-import android.app.Fragment;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -38,19 +24,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.ArrayList;
+
 import io.treehouses.remote.InitialActivity;
 import io.treehouses.remote.MiscOld.Constants;
+import io.treehouses.remote.MiscOld.Lists;
 import io.treehouses.remote.Network.BluetoothChatService;
 import io.treehouses.remote.R;
-
-import static android.content.Context.CLIPBOARD_SERVICE;
 
 public class TerminalFragment extends androidx.fragment.app.Fragment {
 
     View view;
     ListView listView;
     InitialActivity initialActivity;
+    Lists list;
     Context context;
     public TerminalFragment(){}
 
@@ -58,15 +44,11 @@ public class TerminalFragment extends androidx.fragment.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_terminal_fragment, container, false);
 
-        ArrayList<String> list = new ArrayList<String>();
-        list.add("Change Pi Password");
-        list.add("Treehouses");
-        list.add("Treehouses Detectrpi");
-        list.add("Docker ps");
-        list.add("Rename Hostname");
-        list.add("Expand File System");
-
         initialActivity = new InitialActivity();
+        list = new Lists();
+
+
+
 //        RPIDialogFragment initialActivity = new RPIDialogFragment();
 //        BluetoothDevice device = initialActivity.getMainDevice();
         mChatService = initialActivity.getChatService();
@@ -81,7 +63,7 @@ public class TerminalFragment extends androidx.fragment.app.Fragment {
         listView = view.findViewById(R.id.listView);
         listView.setDivider(null);
         listView.setDividerHeight(0);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.terminal_options_list, R.id.terminalTexxtview, list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.terminal_options_list, R.id.terminalTexxtview, list.TerminalList());
         listView.setAdapter(adapter);
 
         setHasOptionsMenu(true);

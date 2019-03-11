@@ -22,6 +22,8 @@ package io.treehouses.remote.MiscOld;
  * Created by yubo on 7/11/17.
  */
 
+import java.util.ArrayList;
+
 import io.treehouses.remote.Network.BluetoothChatService;
 
 /**
@@ -55,3 +57,4 @@ public interface Constants {
     String TOAST = "toast";
     
 }
+
